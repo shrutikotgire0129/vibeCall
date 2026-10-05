@@ -1,108 +1,133 @@
 # VibeCall
 
-> A full-stack real-time video conferencing platform built with Next.js, Clerk, and Stream.
+> A full-stack real-time video conferencing platform built with Next.js, TypeScript, Clerk, and Stream.
 
-VibeCall is a modern video meeting application that allows users to securely create, schedule, join, and manage online meetings. It includes real-time video communication, screen sharing, recordings, participant management, meeting chat, host controls, and passcode-protected meetings.
+VibeCall is a modern video conferencing application that enables users to **create, schedule, join, and manage online meetings**.
 
-The project was built to explore production-style video conferencing concepts including authentication, real-time communication, meeting state, permissions, and interactive UI.
+It provides real-time video and audio communication, screen sharing, meeting chat, recordings, participant management, waiting rooms, host controls, passcode-protected meetings, and multiple meeting layouts.
+
+The project was built to explore **production-style real-time application development**, including authentication, real-time communication, asynchronous meeting state, permissions, protected meeting flows, and interactive user interfaces.
+
+<p align="center">
+  <a href="https://vibe-call-nine.vercel.app/">
+    <img src="https://img.shields.io/badge/Live%20Demo-Visit%20VibeCall-6247AA?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo" />
+  </a>
+</p>
+
+---
 
 ## Features
 
+### Authentication & Access
+
 * **User Authentication** — Secure sign-up and sign-in with Clerk
+* **Protected Routes** — Authenticated access to meeting functionality
+* **Meeting Passcodes** — Protect meetings with passcode verification
+* **Waiting Room** — Participants wait for the host before entering a meeting
+
+### Meeting Management
+
 * **Create Meetings** — Start instant meetings with unique meeting rooms
 * **Schedule Meetings** — Schedule meetings for a future date and time
 * **Join Meetings** — Join meetings through unique meeting links
 * **Personal Room** — Dedicated personal meeting room for each user
-* **Meeting Passcode** — Protect meetings with a passcode
-* **Host Controls** — Meeting hosts can manage and end meetings
-* **Waiting Room** — Participants wait for the host before entering the meeting
-* **Real-Time Video & Audio** — Powered by Stream Video
-* **Screen Sharing** — Share your screen during meetings
-* **Mute / Camera Controls** — Manage microphone and camera during calls
-* **Meeting Chat** — Real-time text chat inside meetings
-* **Participants Panel** — View participants currently in the meeting
-* **Participant Count** — Display the current number of participants
-* **Multiple Layouts** — Grid, speaker-left, and speaker-right layouts
-* **Meeting Recordings** — Access recorded meetings
-* **Call Statistics** — View real-time call statistics
 * **Meeting Sharing** — Share or copy the current meeting link
-* **End Call for Everyone** — Meeting owner can terminate the meeting for all participants
-* **Responsive UI** — Designed for different screen sizes
-
-## Tech Stack
-
-### Frontend
-
-* Next.js
-* React
-* TypeScript
-* Tailwind CSS
-* shadcn/ui
-* Lucide React
-
-### Authentication
-
-* Clerk
+* **Upcoming Meetings** — View scheduled meetings
+* **Previous Meetings** — Access previously completed meetings
+* **Meeting Calendar** — View scheduled meetings in a calendar interface
 
 ### Real-Time Communication
 
-* Stream Video SDK
-* Stream Chat SDK
+* **Video & Audio** — Real-time communication powered by Stream Video
+* **Screen Sharing** — Share your screen during meetings
+* **Mute / Camera Controls** — Control microphone and camera state
+* **Meeting Chat** — Real-time text messaging inside meetings
+* **Participants Panel** — View participants currently in the meeting
+* **Participant Count** — Display the current number of participants
+* **Meeting Recordings** — Access recorded meetings
+* **Call Statistics** — View real-time call statistics
 
-### Backend / Server
+### Host & Meeting Controls
 
-* Next.js Server Actions
-* Stream Node SDK
+* **Host Controls** — Meeting hosts can manage meeting participants and settings
+* **Participant Permissions** — Manage participant access and meeting permissions
+* **End Call for Everyone** — Meeting owners can terminate the meeting for all participants
+* **Multiple Layouts** — Grid, speaker-left, and speaker-right layouts
 
-### Development Tools
+### User Experience
 
-* ESLint
-* Git
-* GitHub
+* **Responsive UI** — Designed for different screen sizes
+* **Interactive Meeting Interface** — Real-time controls and meeting state updates
+* **Reusable Components** — Modular React components for meeting functionality
 
-## Screenshots
+---
 
-### Home
+## Tech Stack
 
-![VibeCall Home](./screenshots/home.png)
+| Category                 | Technologies           |
+| ------------------------ | ---------------------- |
+| **Framework**            | Next.js                |
+| **Language**             | TypeScript             |
+| **Frontend**             | React                  |
+| **Styling**              | Tailwind CSS           |
+| **UI Components**        | shadcn/ui              |
+| **Icons**                | Lucide React           |
+| **Authentication**       | Clerk                  |
+| **Video Infrastructure** | Stream Video SDK       |
+| **Real-Time Chat**       | Stream Chat SDK        |
+| **Backend**              | Next.js Server Actions |
+| **Server SDK**           | Stream Node SDK        |
+| **Development Tools**    | ESLint, Git, GitHub    |
 
-### Authentication
+---
 
-<table>
-  <tr>
-    <td width="50%">
-      <img src="./screenshots/sign-in.png" alt="VibeCall Sign In" />
-    </td>
-    <td width="50%">
-      <img src="./screenshots/sign-up.png" alt="VibeCall Sign Up" />
-    </td>
-  </tr>
-</table>
+## Application Architecture
 
-### Meeting Management
+VibeCall uses a client-server architecture where authentication, application state, meeting interfaces, and real-time communication are handled through dedicated application layers.
 
-<table>
-  <tr>
-    <td width="50%">
-      <img src="./screenshots/upcoming.png" alt="Upcoming Meetings" />
-    </td>
-    <td width="50%">
-      <img src="./screenshots/previous.png" alt="Previous Meetings" />
-    </td>
-  </tr>
-  <tr>
-    <td width="50%">
-      <img src="./screenshots/recordings.png" alt="Meeting Recordings" />
-    </td>
-    <td width="50%">
-      <img src="./screenshots/calendar.png" alt="Meeting Calendar" />
-    </td>
-  </tr>
-</table>
+```text
+                         ┌─────────────────────┐
+                         │        User         │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │ Clerk Authentication│
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │  VibeCall Dashboard │
+                         └──────────┬──────────┘
+                                    │
+                 ┌──────────────────┼──────────────────┐
+                 │                  │                  │
+                 ▼                  ▼                  ▼
+          Create Meeting      Schedule Meeting     Personal Room
+                 │                  │                  │
+                 └──────────────────┼──────────────────┘
+                                    │
+                                    ▼
+                            ┌───────────────┐
+                            │  Meeting Room │
+                            └───────┬───────┘
+                                    │
+                   ┌────────────────┼────────────────┐
+                   │                │                │
+                   ▼                ▼                ▼
+             Stream Video      Stream Chat      Meeting State
+                   │                │                │
+                   ├── Video        ├── Messages    ├── Lobby
+                   ├── Audio        │                ├── Permissions
+                   ├── Screen      │                ├── Host Controls
+                   │   Sharing      │                └── Meeting Lifecycle
+                   └── Recording    │
+                                    │
+                                    ▼
+                              Participants
+```
 
-### Personal Room
-
-![VibeCall Personal Room](./screenshots/personal-room.png)
+---
 
 ## Application Flow
 
@@ -141,8 +166,39 @@ VibeCall Dashboard
         ├── Meeting Chat
         ├── Recording
         ├── Call Statistics
+        ├── Layout Controls
         └── Host Controls
 ```
+
+---
+
+## Screenshots
+
+### Home
+
+![VibeCall Home](https://github.com/shrutikotgire0129/vibeCall/raw/main/screenshots/home.png)
+
+### Authentication
+
+| Sign In                                                                                             | Sign Up                                                                                             |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| ![VibeCall Sign In](https://github.com/shrutikotgire0129/vibeCall/raw/main/screenshots/sign-in.png) | ![VibeCall Sign Up](https://github.com/shrutikotgire0129/vibeCall/raw/main/screenshots/sign-up.png) |
+
+### Meeting Management
+
+| Upcoming Meetings                                                                                     | Previous Meetings                                                                                     |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| ![Upcoming Meetings](https://github.com/shrutikotgire0129/vibeCall/raw/main/screenshots/upcoming.png) | ![Previous Meetings](https://github.com/shrutikotgire0129/vibeCall/raw/main/screenshots/previous.png) |
+
+| Meeting Recordings                                                                                       | Meeting Calendar                                                                                     |
+| -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| ![Meeting Recordings](https://github.com/shrutikotgire0129/vibeCall/raw/main/screenshots/recordings.png) | ![Meeting Calendar](https://github.com/shrutikotgire0129/vibeCall/raw/main/screenshots/calendar.png) |
+
+### Personal Room
+
+![VibeCall Personal Room](https://github.com/shrutikotgire0129/vibeCall/raw/main/screenshots/personal-room.png)
+
+---
 
 ## Project Structure
 
@@ -167,6 +223,9 @@ vibeCall/
 │   ├── EndCallButton.tsx
 │   └── ...
 │
+├── constants/
+├── convex/
+│
 ├── hooks/
 │   ├── useGetCallById.ts
 │   └── useGetCalls.ts
@@ -178,12 +237,25 @@ vibeCall/
 │   └── utils.ts
 │
 ├── public/
+├── screenshots/
 ├── proxy.ts
 ├── package.json
 └── README.md
 ```
 
+---
+
 ## Getting Started
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+* Node.js
+* npm
+* Git
+* A Clerk account
+* A Stream account
 
 ### 1. Clone the repository
 
@@ -217,7 +289,7 @@ STREAM_SECRET_KEY=
 
 Add the appropriate values from your Clerk and Stream dashboards.
 
-> Never commit `.env.local` or other files containing secret credentials to GitHub.
+> **Security:** Never commit `.env.local` or any file containing secret credentials to GitHub.
 
 ### 5. Start the development server
 
@@ -225,27 +297,35 @@ Add the appropriate values from your Clerk and Stream dashboards.
 npm run dev
 ```
 
-Open `http://localhost:3000` in your browser.
+Open:
+
+```text
+http://localhost:3000
+```
+
+---
 
 ## Production Build
 
-Create a production build:
+Create an optimized production build:
 
 ```bash
 npm run build
 ```
 
-Then start the production server:
+Start the production server:
 
 ```bash
 npm start
 ```
 
+---
+
 ## Environment & Security
 
 VibeCall keeps sensitive credentials outside the source code using environment variables.
 
-The repository's `.gitignore` excludes environment files such as:
+The repository excludes environment files through `.gitignore`:
 
 ```text
 .env
@@ -253,17 +333,115 @@ The repository's `.gitignore` excludes environment files such as:
 .env.*
 ```
 
-Server-side Stream credentials are handled through Next.js server-side code rather than being exposed directly to the browser.
+Server-side Stream credentials are handled through server-side code rather than being exposed directly to the browser.
+
+Authentication and protected application routes are handled through Clerk.
+
+---
+
+## Key Engineering Concepts
+
+VibeCall was designed around several concepts commonly found in production real-time applications.
+
+### Authentication
+
+Clerk handles user authentication and provides protected access to the application's meeting functionality.
+
+### Real-Time Communication
+
+Stream Video provides the infrastructure for real-time audio and video communication, screen sharing, recording, participant management, and call statistics.
+
+### Real-Time Messaging
+
+Stream Chat enables participants to communicate through meeting-specific text chat.
+
+### Meeting State
+
+The application manages different meeting states throughout the meeting lifecycle:
+
+```text
+Scheduled
+    ↓
+Join / Start
+    ↓
+Passcode Verification
+    ↓
+Waiting Room
+    ↓
+Active Meeting
+    ↓
+Ended
+```
+
+### Permissions
+
+Meeting functionality differentiates between hosts and participants, allowing the meeting owner to control access and terminate meetings when required.
+
+### Server-Side Operations
+
+Next.js Server Actions and the Stream Node SDK are used for server-side operations that require protected credentials.
+
+---
 
 ## What I Learned
 
 Building VibeCall provided hands-on experience with:
 
 * Building a full-stack application with Next.js
+* Developing reusable React and TypeScript components
 * Implementing authentication with Clerk
 * Integrating real-time video infrastructure
 * Working with real-time messaging
 * Managing asynchronous meeting state
 * Handling host and participant permissions
 * Implementing protected meeting flows
-* Working with Next.js
+* Working with Next.js Server Actions
+* Integrating client-side and server-side SDKs
+* Designing responsive and interactive interfaces
+* Structuring a larger Next.js application
+* Managing environment variables and server-side secrets
+* Building features around real-time user interactions
+
+---
+
+## Challenges
+
+Some of the main engineering challenges involved:
+
+* Managing real-time meeting state and participant interactions
+* Designing a reliable meeting join and waiting-room flow
+* Handling different permissions for hosts and participants
+* Integrating video, audio, screen sharing, chat, and recordings into one interface
+* Keeping sensitive Stream credentials on the server
+* Maintaining reusable components across different meeting states
+* Building a responsive interface for complex real-time meeting controls
+
+---
+
+## Future Improvements
+
+Potential improvements for future versions include:
+
+* Meeting notifications and reminders
+* Advanced participant moderation
+* Enhanced meeting analytics
+* Improved recording management
+* Calendar integrations
+* More granular meeting permissions
+* Additional accessibility improvements
+
+---
+
+## Author
+
+**Shruti Hiraman Kotgire**
+
+[![GitHub](https://img.shields.io/badge/GitHub-shrutikotgire0129-181717?style=flat-square\&logo=github)](https://github.com/shrutikotgire0129)
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Shruti%20Kotgire-0A66C2?style=flat-square\&logo=linkedin)](https://www.linkedin.com/in/shrutikotgire129)
+
+---
+
+## License
+
+This project is intended for learning and portfolio purposes.
