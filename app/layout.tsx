@@ -1,4 +1,3 @@
-
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -29,6 +28,7 @@ export default function RootLayout({
           rel="preload"
           href="/images/hero-background.png"
           as="image"
+          fetchPriority="high"
         />
       </head>
 
