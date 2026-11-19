@@ -23,15 +23,6 @@ export default function RootLayout({
 }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
-      <head>
-        <link
-          rel="preload"
-          href="/images/hero-background.png"
-          as="image"
-          fetchPriority="high"
-        />
-      </head>
-
       <ClerkProvider
         appearance={{
           options: {
