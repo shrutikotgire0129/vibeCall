@@ -1,3 +1,4 @@
+
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -23,6 +24,14 @@ export default function RootLayout({
 }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="preload"
+          href="/images/hero-background.png"
+          as="image"
+        />
+      </head>
+
       <ClerkProvider
         appearance={{
           options: {
@@ -39,9 +48,7 @@ export default function RootLayout({
         }}
       >
         <body className={`${inter.className} bg-dark-2`}>
-          <Toaster>
-            {children}
-          </Toaster>
+          <Toaster>{children}</Toaster>
         </body>
       </ClerkProvider>
     </html>

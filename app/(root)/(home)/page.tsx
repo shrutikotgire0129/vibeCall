@@ -1,4 +1,4 @@
-import Link from "next/link";
+
 import MeetingTypeList from "@/components/MeetingTypeList";
 
 const Home = () => {
@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <section className="flex size-full flex-col gap-5 text-white">
       {/* Hero */}
-      <div className="h-[303px] w-full rounded-[20px] bg-hero bg-cover">
+      <div className="h-[303px] w-full rounded-[20px] bg-hero bg-cover bg-center">
         <div className="flex h-full flex-col justify-center max-md:px-5 max-md:py-8 lg:p-11">
           <div className="flex flex-col justify-center gap-6">
             <h1 className="text-4xl font-extrabold lg:text-7xl">
